@@ -1,4 +1,5 @@
 import React from 'react'
+import Book from './Book';
 
 
 export default function BookPage(props) {
@@ -18,7 +19,8 @@ export default function BookPage(props) {
   )
 }
 
-const AddBook = props => (<div className="open-search">
+const AddBook = props => (
+<div className="open-search">
   <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
 </div>)
 
@@ -40,49 +42,14 @@ function BookShelfBooks(props) {
   return (<div className="bookshelf-books">
     <ol className="books-grid">
       <li>
-        <Book />
+        <Book  bookTitle="To Kill a Mockingbird" bookAuthor="Harper Lee" bookImg="http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api"/>
       </li>
       <li>
-        <div className="book">
-          <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url("http://books.google.com/books/content?id=yDtCuFHXbAYC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72RRiTR6U5OUg3IY_LpHTL2NztVWAuZYNFE8dUuC0VlYabeyegLzpAnDPeWxE6RHi0C2ehrR9Gv20LH2dtjpbcUcs8YnH5VCCAH0Y2ICaKOTvrZTCObQbsfp4UbDqQyGISCZfGN&source=gbs_api")' }}></div>
-            <div className="book-shelf-changer">
-              <select>
-                <option value="move" disabled>Move to...</option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
-                <option value="none">None</option>
-              </select>
-            </div>
-          </div>
-          <div className="book-title">Ender's Game</div>
-          <div className="book-authors">Orson Scott Card</div>
-        </div>
+      <Book  bookTitle="To Kill a Mockingbird" bookAuthor="Harper Lee" bookImg="http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api"/>
       </li>
     </ol>
   </div>)
 }
 
-function Book(props) {
-  return (<div className="book">
-    <div className="book-top">
-      <BookImg />
-      <div className="book-shelf-changer">
-        <BookOptions />
-      </div>
-    </div>
-    <div className="book-title">To Kill a Mockingbird</div>
-    <div className="book-authors">Harper Lee</div>
-  </div>)
-}
 
-const BookImg = props => (<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' }}></div>)
 
-const BookOptions = () => (<select>
-  <option value="move" disabled>Move to...</option>
-  <option value="currentlyReading">Currently Reading</option>
-  <option value="wantToRead">Want to Read</option>
-  <option value="read">Read</option>
-  <option value="none">None</option>
-</select>)
