@@ -1,16 +1,17 @@
 import React from "react";
 
 export default function Book(props) {
+  const { bookImg, bookAuthor, bookTitle } = props;
   return (
     <div className="book">
       <div className="book-top">
-        <BookImg img={props.bookImg} />
+        <BookImg img={bookImg} />
         <div className="book-shelf-changer">
           <BookOptions />
         </div>
       </div>
-      <div className="book-title">{props.bookTitle}</div>
-      <div className="book-authors">{props.bookAuthor}</div>
+      <div className="book-title">{bookTitle}</div>
+      <div className="book-authors">{bookAuthor}</div>
     </div>
   );
 }

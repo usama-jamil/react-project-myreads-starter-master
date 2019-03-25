@@ -1,15 +1,14 @@
 import React from "react";
 import Book from "./Book";
 
-export default function SearchPage() {
+export default function SearchPage(props) {
   return (
     <div className="search-books">
-      <BookSearchBar />
+      <BookSearchBar {...props} />
       <BookResults />
     </div>
   );
 }
-
 const BookResults = () => (
   <div className="search-books-results">
     <ol className="books-grid">
@@ -30,11 +29,11 @@ const BookResults = () => (
     </ol>
   </div>
 );
-const BookSearchBar = () => (
+const BookSearchBar = (props) => (
   <div className="search-books-bar">
     <button
       className="close-search"
-      onClick={() => this.setState({ showSearchPage: false })}
+      onClick={() => props.history.push("/")}
     >
       Close
     </button>

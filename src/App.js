@@ -1,8 +1,10 @@
-import React from 'react'
-// import * as BooksAPI from './BooksAPI'
-import './App.css'
-import BookPage from './BookPage';
-import SearchPage from './SearchPage';
+import React from "react";
+import * as BooksAPI from "./BooksAPI";
+import "./App.css";
+import BookPage from "./BookPage";
+import SearchPage from "./SearchPage";
+
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 class BooksApp extends React.Component {
   state = {
@@ -13,16 +15,19 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false
-  }
+  };
 
   render() {
+    // const books = BooksAPI.getAll();
     return (
-      <div className="app">
-        {this.state.showSearchPage ? <SearchPage/> : <BookPage/>}
-      </div>
-    )
+      <BrowserRouter>
+        <div className="app">
+          <Route path="/" component={BookPage} exact />
+          <Route path="/search" component={SearchPage} />
+        </div>
+      </BrowserRouter>
+    );
   }
 }
 
-
-export default BooksApp
+export default BooksApp;

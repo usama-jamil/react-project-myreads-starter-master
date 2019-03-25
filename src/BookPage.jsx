@@ -12,14 +12,14 @@ export default function BookPage(props) {
           <BookShelf title="Read" />
         </div>
       </div>
-      <AddBook />
+      <AddBook {...props}/>
     </div>
   );
 }
 
 const AddBook = props => (
   <div className="open-search">
-    <button onClick={() => this.setState({ showSearchPage: true })}>
+    <button onClick={() => props.history.push("/search")}>
       Add a book
     </button>
   </div>
