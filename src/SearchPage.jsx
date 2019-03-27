@@ -1,40 +1,57 @@
-import React from "react";
 import Book from "./Book";
+import React, { Component } from "react";
+import * as BookAPI from "./BooksAPI";
 
-export default function SearchPage(props) {
-  return (
-    <div className="search-books">
-      <BookSearchBar {...props} />
-      <BookResults />
-    </div>
-  );
+export default class SearchPage extends Component {
+  state = {
+    searchQuery: "",
+    BookList: []
+  };
+
+  handleChange = event => {
+    this.setState({ searchQuery: event.target.value });
+    // BookAPI.getAll().then(b => console.log(b));
+    BookAPI.search(this.state.searchQuery).then(books =>
+      this.setState({ BookList: books })
+    );
+    // console.log(this.state.BookList);
+  };
+
+  render() {
+    const { searchQuery, BookList } = this.state;
+
+    return (
+      <div className="search-books">
+        <BookSearchBar
+          searchQuery={searchQuery}
+          handleChange={this.handleChange}
+          history={this.props.history}
+        />
+        <BookResults BookList={BookList} />
+      </div>
+    );
+  }
 }
-const BookResults = () => (
+const BookResults = ({ BookList }) => (
   <div className="search-books-results">
     <ol className="books-grid">
-      <li>
-        <Book
-          bookTitle="To Kill a Mockingbird"
-          bookAuthor="Harper Lee"
-          bookImg="http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api"
-        />
-      </li>
-      <li>
-        <Book
-          bookTitle="To Kill a Mockingbird"
-          bookAuthor="Harper Lee"
-          bookImg="http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api"
-        />
-      </li>
+      {/* <li> */}
+      {BookList &&
+        BookList.map(book => (
+          <li key={book.id}>
+            <Book
+              bookTitle={book.title}
+              bookAuthor={book.authors}
+              bookImg={book.imageLinks.smallThumbnail}
+            />
+          </li>
+        ))}
     </ol>
   </div>
 );
-const BookSearchBar = (props) => (
+const BookSearchBar = props => (
   <div className="search-books-bar">
-    <button
-      className="close-search"
-      onClick={() => props.history.push("/")}
-    >
+    <button className="close-search" onClick={() => props.history.push("/")}>
       Close
     </button>
     <div className="search-books-input-wrapper">
@@ -46,7 +63,12 @@ const BookSearchBar = (props) => (
        However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
        you don't find a specific author or title. Every search is limited by search terms.
      */}
-      <input type="text" placeholder="Search by title or author" />
+      <input
+        type="text"
+        placeholder="Search by title or author"
+        onChange={props.handleChange}
+        value={props.searchQuery}
+      />
     </div>
   </div>
 );
