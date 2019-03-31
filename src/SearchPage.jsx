@@ -1,13 +1,17 @@
 import Book from "./Book";
 import React, { Component } from "react";
 import * as BookAPI from "./BooksAPI";
-
+import BookGrid from "./BooksGrid";
 export default class SearchPage extends Component {
   state = {
     searchQuery: "",
     BookList: []
   };
 
+  // constructor() {
+  //   super();
+  //   this.BookResults = this.BookResults.bind(this);
+  // }
   handleChange = event => {
     this.setState({ searchQuery: event.target.value });
     // BookAPI.getAll().then(b => console.log(b));
@@ -18,8 +22,8 @@ export default class SearchPage extends Component {
   };
 
   render() {
-    const { searchQuery, BookList } = this.state;
-
+    const { searchQuery , BookList} = this.state;
+    console.log(this.state);
     return (
       <div className="search-books">
         <BookSearchBar
@@ -27,28 +31,28 @@ export default class SearchPage extends Component {
           handleChange={this.handleChange}
           history={this.props.history}
         />
-        <BookResults BookList={BookList} />
+        <BookResults BookList ={BookList}/>
       </div>
     );
   }
 }
-const BookResults = ({ BookList }) => (
-  <div className="search-books-results">
-    <ol className="books-grid">
-      {/* <li> */}
-      {BookList &&
-        BookList.map(book => (
-          <li key={book.id}>
-            <Book
-              bookTitle={book.title}
-              bookAuthor={book.authors}
-              bookImg={book.imageLinks.smallThumbnail}
-            />
-          </li>
-        ))}
-    </ol>
-  </div>
-);
+const BookResults = ({BookList}) => {
+  return (
+    <div className="search-books-results">
+        <BookGrid BookList={BookList}/>
+        {/* {BookList &&
+          BookList.map(book => (
+            <li key={book.id}>
+              <Book
+                bookTitle={book.title}
+                bookAuthor={book.authors}
+                bookImg={book.imageLinks.smallThumbnail}
+              />
+            </li>
+          ))} */}
+    </div>
+  );
+};
 const BookSearchBar = props => (
   <div className="search-books-bar">
     <button className="close-search" onClick={() => props.history.push("/")}>
