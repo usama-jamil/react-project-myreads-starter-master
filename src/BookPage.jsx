@@ -24,27 +24,38 @@ export default class BookPage extends Component {
       } else if (book.shelf === "read") {
         read.push(book);
       }
+      return;
     });
 
     this.setState({
-      allBooks:books,
+      allBooks: books,
       currentlyReading,
       wantToRead,
       read
-    })
+    });
   }
 
+  
   render() {
-    console.log(this.state);
-    const{currentlyReading , wantToRead ,read} =this.state;
+    // console.log(this.state);
+    const { currentlyReading, wantToRead, read } = this.state;
     return (
       <div className="list-books">
         <MyReadsTitle />
         <div className="list-books-content">
           <div>
-            <BookShelf title="Currently Reading" BookList={currentlyReading} />
-            <BookShelf title="Want to Read" BookList={wantToRead}/>
-            <BookShelf title="Read" BookList={read} />
+            <BookShelf
+              title="Currently Reading"
+              BookList={currentlyReading}
+            />
+            <BookShelf
+              title="Want to Read"
+              BookList={wantToRead}
+            />
+            <BookShelf
+              title="Read"
+              BookList={read}
+            />
           </div>
         </div>
         <AddBook {...this.props} />
@@ -67,19 +78,19 @@ function MyReadsTitle() {
   );
 }
 
-function BookShelf({title , BookList}) {
+function BookShelf({ title, BookList }) {
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{title}</h2>
-      <BookShelfBooks BookList={BookList}/>
+      <BookShelfBooks BookList={BookList } />
     </div>
   );
 }
 
-function BookShelfBooks({BookList}) {
+function BookShelfBooks({ BookList }) {
   return (
     <div className="bookshelf-books">
-        <BookGrid BookList={BookList}/>
+      <BookGrid BookList={BookList} />
       {/* <ol className="books-grid">
         <li>
           <Book

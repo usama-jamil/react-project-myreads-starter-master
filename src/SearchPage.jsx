@@ -23,7 +23,7 @@ export default class SearchPage extends Component {
 
   render() {
     const { searchQuery , BookList} = this.state;
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div className="search-books">
         <BookSearchBar
