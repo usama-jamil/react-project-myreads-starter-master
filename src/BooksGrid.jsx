@@ -1,7 +1,7 @@
 import React from "react";
 import Book from "./Book";
 
-export default function BookGrid({ BookList}) {
+export default function BookGrid({ BookList,selectBookShelf}) {
   return (
     <ol className="books-grid">
       {BookList &&
@@ -15,6 +15,7 @@ export default function BookGrid({ BookList}) {
               shelf={book.shelf}
               bookId={book.id}
               BookList={BookList}
+              selectBookShelf={selectBookShelf}
             />
           </li>
         ))}

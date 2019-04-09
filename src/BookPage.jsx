@@ -4,39 +4,56 @@ import React, { Component } from "react";
 import BookGrid from "./BooksGrid";
 
 export default class BookPage extends Component {
+
+  constructor() {
+    super();
+
+    this.selectBookShelf = this.selectBookShelf.bind(this);
+  }
+
   state = {
-    allBooks: []
+    allBooks: [],
+    currentlyReading: [],
+    wantToRead: [],
+    read: []
   };
 
   componentDidMount = () => {
-    BookAPI.getAll().then(books =>{ this.setState({allBooks:books}) 
-      this.selectBookShelf()});
+    BookAPI.getAll().then(books => {
+      this.setState({ allBooks: books })
+      this.selectBookShelf()
+    });
   };
 
   selectBookShelf() {
-    const {allBooks} =this.state
+    console.log(this.state)
+    // const { allBooks } = this.state
+    let allBooks=[]
     let currentlyReading = [];
     let wantToRead = [];
     let read = [];
-    allBooks.map(book => {
-      if (book.shelf === "currentlyReading") {
-        currentlyReading.push(book);
-      } else if (book.shelf === "wantToRead") {
-        wantToRead.push(book);
-      } else if (book.shelf === "read") {
-        read.push(book);
-      }
-      return;
-    });
-
-    this.setState({
-      currentlyReading,
-      wantToRead,
-      read
-    });
+    
+    BookAPI.getAll().then(books => allBooks=books).then(()=>{
+      allBooks.map(book => {
+        if (book.shelf === "currentlyReading") {
+          currentlyReading.push(book);
+        } else if (book.shelf === "wantToRead") {
+          wantToRead.push(book);
+        } else if (book.shelf === "read") {
+          read.push(book);
+        }
+        return;
+      }); 
+      this.setState({
+        currentlyReading,
+        wantToRead,
+        read
+      });
+    })
+    
   }
 
-  
+
   render() {
     // console.log(this.state);
     const { currentlyReading, wantToRead, read } = this.state;
@@ -48,14 +65,17 @@ export default class BookPage extends Component {
             <BookShelf
               title="Currently Reading"
               BookList={currentlyReading}
+              selectBookShelf={this.selectBookShelf}
             />
             <BookShelf
               title="Want to Read"
               BookList={wantToRead}
+              selectBookShelf={this.selectBookShelf}
             />
             <BookShelf
               title="Read"
               BookList={read}
+              selectBookShelf={this.selectBookShelf}
             />
           </div>
         </div>
@@ -79,19 +99,19 @@ function MyReadsTitle() {
   );
 }
 
-function BookShelf({ title, BookList }) {
+function BookShelf({ title, BookList, selectBookShelf }) {
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{title}</h2>
-      <BookShelfBooks BookList={BookList } />
+      <BookShelfBooks BookList={BookList} selectBookShelf={selectBookShelf} />
     </div>
   );
 }
 
-function BookShelfBooks({ BookList }) {
+function BookShelfBooks({ BookList, selectBookShelf }) {
   return (
     <div className="bookshelf-books">
-      <BookGrid BookList={BookList} />
+      <BookGrid BookList={BookList} selectBookShelf={selectBookShelf} />
       {/* <ol className="books-grid">
         <li>
           <Book

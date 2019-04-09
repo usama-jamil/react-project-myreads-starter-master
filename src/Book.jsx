@@ -15,8 +15,9 @@ export default class Book extends Component {
     //update in server
     BookAPI.get(bookId).then(updateBook =>
       BookAPI.update(updateBook, newShelf)
-    );
+    ).then(this.props.selectBookShelf);
 
+    
     // console.log(updateBook);
     // .then(a=>console.log(a));
 
@@ -24,13 +25,13 @@ export default class Book extends Component {
   }
   render() {
     // console.log(this.props);
-    const { bookImg, bookAuthor, bookTitle, shelf } = this.props;
+    const { bookImg, bookAuthor, bookTitle, shelf} = this.props;
     return (
       <div className="book">
         <div className="book-top">
           <BookImg img={bookImg} />
           <div className="book-shelf-changer">
-            <BookOptions shelf={shelf} updateBookShelf={this.updateBookShelf} />
+            <BookOptions shelf={shelf} updateBookShelf={this.updateBookShelf}  />
           </div>
         </div>
         <div className="book-title">{bookTitle}</div>
