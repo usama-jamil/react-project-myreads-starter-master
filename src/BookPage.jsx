@@ -9,14 +9,16 @@ export default class BookPage extends Component {
   };
 
   componentDidMount = () => {
-    BookAPI.getAll().then(books => this.selectBookShelf(books));
+    BookAPI.getAll().then(books =>{ this.setState({allBooks:books}) 
+      this.selectBookShelf()});
   };
 
-  selectBookShelf(books) {
+  selectBookShelf() {
+    const {allBooks} =this.state
     let currentlyReading = [];
     let wantToRead = [];
     let read = [];
-    books.map(book => {
+    allBooks.map(book => {
       if (book.shelf === "currentlyReading") {
         currentlyReading.push(book);
       } else if (book.shelf === "wantToRead") {
@@ -28,7 +30,6 @@ export default class BookPage extends Component {
     });
 
     this.setState({
-      allBooks: books,
       currentlyReading,
       wantToRead,
       read

@@ -1,7 +1,7 @@
 import React from "react";
 import Book from "./Book";
 
-export default function BookGrid({ BookList ,updateBookShelf}) {
+export default function BookGrid({ BookList}) {
   return (
     <ol className="books-grid">
       {BookList &&
@@ -14,7 +14,7 @@ export default function BookGrid({ BookList ,updateBookShelf}) {
               bookImg={book.imageLinks.smallThumbnail}
               shelf={book.shelf}
               bookId={book.id}
-              updateBookShelf={updateBookShelf}
+              BookList={BookList}
             />
           </li>
         ))}
